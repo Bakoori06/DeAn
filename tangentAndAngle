@@ -1,0 +1,96 @@
+pkg load symbolic
+
+close
+#Part 1: Setting up the Original Function
+strF = input("Please Insert Your Function. Use the letter 'x' for your independent value  ", "s");
+symbF = sym(strF);
+real_function = function_handle(symbF);
+syms x;
+Fn = formula(real_function(x));
+dFn = diff(Fn);
+real_dFn = function_handle(dFn);
+fFn = formula(Fn);
+ffFn = function_handle(fFn);
+x1 = -100:.01:100;
+disp("I've got your derivative now!")
+
+
+#Part 2: Setting up the Tangent Line
+
+#Section 2.1: Requesting a value for the slope (finding m).
+specified_x = input("Please give the specified x-value from which to evaluate the derivative  ", "s");
+derivative_x = -100:0.1:100;
+subs(real_dFn, x, specified_x);
+disp(ans);
+specified_y = ans;
+subs(Fn, x, specified_x);
+disp(ans);
+specified_y0 = ans;
+
+#Section 2.2: The tangent line equation in terms of m, y_0, and x_0.
+str_ED = formula(specified_y * x - specified_y * specified_x + specified_y0);
+real_ED = function_handle(str_ED);
+
+
+#Part 3: Setting up and Adjusting the Plot (spaghetti code incoming)
+plot(x1, ffFn(x1), x1, real_ED(x1))
+grid minor on
+legend("Graph of f", "Tangent Line")
+symSpX = sym(specified_x);
+
+#Section 3.1: Adjusting the limits of the x-axis
+limitsOfX = function_handle(symSpX);
+subs(limitsOfX, x, specified_x);
+double(ans)
+xminim = ans - 20;
+subs(limitsOfX, x, specified_x);
+double(ans)
+xmaxim = ans + 20;
+
+#Section 3.2: Adjusting the limits of the y-axis
+yminim = double(0.3 .* specified_y0);
+ymaxim = double(3 .* specified_y0);
+
+#Subsection 3.2.1: a bunch of if-statements to account for negative values.
+if yminim < ymaxim
+axis([xminim xmaxim yminim ymaxim], "square")
+
+if yminim > 0
+ylim([yminim*-10, ymaxim*10])
+else
+ylim([yminim*10, ymaxim*-10])
+endif
+
+else
+axis([xminim xmaxim ymaxim yminim], "square")
+
+if yminim > 0
+ylim([yminim*-10, ymaxim*10])
+else
+ylim([yminim*10, ymaxim*-10])
+endif
+
+endif
+
+
+#Part 4: Finding The Angle between the Tangent Line and the x-Axis.
+pkg load interval
+
+
+fzero(real_ED, 0)
+zeroOfTL = ans;
+adjacentSide = vpa(specified_x) - zeroOfTL;
+oppositeSide = vpa(specified_y) - 0;
+hypotenuse = sqrt(adjacentSide^2 + oppositeSide^2);
+theAngle = vpa(asin(oppositeSide / hypotenuse) * 180/pi);
+
+
+#Part 5: The Results!!!
+
+disp("----------------------------------------------")
+disp("Here you go! Your derivative is...")
+disp(dFn)
+disp("Your tangent line equation is...")
+disp(str_ED)
+disp("And the angle between the tangent line and the x-axis is...")
+disp(theAngle)
