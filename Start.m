@@ -1,3 +1,8 @@
+#DeAn 1.0, designed by Bakr Al-rawi
+#Telegram: @Bakr_Alrawi
+#Instagram: bakr_rkab
+#Start (Mode Select)
+
 pkg load symbolic
 pkg load interval
 display("Would you like to:")
