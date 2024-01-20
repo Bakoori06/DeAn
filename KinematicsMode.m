@@ -1,3 +1,8 @@
+#DeAn 1.0, designed by Bakr Al-rawi
+#Telegram: @Bakr_Alrawi
+#Instagram: bakr_rkab
+#Kinematics Mode
+
 #Part 0: Preamble for the code
 warning ("off", "OctSymPy:sym:rationalapprox");
 pkg load symbolic
@@ -10,11 +15,13 @@ x1 = -10000:0.1:10000; #Identifies the domain with 0.1 increments
 
 disp("Provide the following information:")
 value_option = yes_or_no("Would you like angle values to be displayed in degrees? (radians by default): ");
-disp("What is the acceleration (pay attention to the sign)? Type 'g' if you are dealing with gravity")
-ac_v = str2num(input("Acceleration: ", "s"));
+disp("What is the acceleration (pay attention to the sign)? Type 'g' if you are dealing with Earth's gravity")
+ac_v = input("Acceleration: ", "s");
+ac_v = strrep(ac_v,"g",num2str(-9.80665));
+ac_v = str2num(ac_v);
 disp("what is the initial velocity?")
 in_v = str2num(input("Initial velocity: ", "s"));
-disp("What is the initial position?")
+disp("What is the initial position (initial height)?")
 in_p = str2num(input("Initial position: ", "s"));
 
 HeightEquation = formula(in_p + in_v * x + 1/2 * (ac_v) * x^2);
@@ -98,4 +105,9 @@ if condition1 == 0 && condition2 == 0
   endif
 endif
 
-disp("Type 'HeightEquation' if you would like to see the formula")
+disp("The trajectory falls to the ground (height of 0) at (in time)...")
+disp(double(vpasolve(formVelocityEq, x, 10000)))
+disp("Type 'HeightEquation' if you would like to see the formula of the inst. velocity at the specified time.")
+disp("Type 'dformPosition' if you would like to see the derivative formula (inst. velocity)")
+disp("Type 'dPosition' for the same purpose as above, but in anonymous function form.")
+disp(":)")
