@@ -35,3 +35,7 @@ Should be typed as:
 -3*x
 ```
 However, if it is a - sign alone, it is not necessary to separate with a *.
+- Example code: try running the FunctionMode with the equation:
+```
+  -0.5*(x-4)^2 + 9
+```
