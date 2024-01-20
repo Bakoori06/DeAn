@@ -1,6 +1,7 @@
-#Revised version of Derivative Angles, designed by Bakr Alrawi
+#DeAn 1.0, designed by Bakr Al-rawi
 #Telegram: @Bakr_Alrawi
 #Instagram: bakr_rkab
+#Function Mode
 
 #Part 0: Preamble for the code
 warning ("off", "OctSymPy:sym:rationalapprox");
@@ -32,10 +33,8 @@ disp("The derivative has been calculated!")
 
 #Part 2: Computing the Derivative at an x-Value and Constructing the Tangent Line
 dformFunction = formula(dFunction(x));
-disp("What is the x-value for which you want to evaluate the derivative at? (For initial velocity, you can type 'vo')")
+disp("What is the x-value for which you want to evaluate the derivative at?")
 xo = input("The x-Value: ", "s");
-double(vpasolve(formFunction, x, -10000));
-xo = strrep(xo,"vo",num2str(ans));
 subs(dformFunction, x, xo);
 slope = vpa(ans);
 xo = vpa(xo);
@@ -59,6 +58,7 @@ if idx == 0
   endif
 endif
 
+disp("-----------------Results-----------------")
 if graph_option > 0 && condition1 == 0 && condition2 == 0
   figure(1)
   axis([-10000 10000 -5e07 5e07]);
@@ -105,7 +105,7 @@ if graph_option > 0 && condition1 == 0 && condition2 == 0
   legend('Tangent Line', 'X-Axis Line')
   title("Highlighting the Angle of the Tangent Line with the x-Axis")
 endif
-disp("-----------------Results-----------------")
+
 disp("The function and the tangent line are tangent at (y-Value)...")
 if condition1 == 1
   disp("every real value of x")
@@ -141,5 +141,7 @@ if condition1 == 0 && condition2 == 0
     disp(theAngleDeg - 180)
   endif
 endif
-#Part 5: Graphing a part-circle to represent that angle
-
+display("Type 'formTL' if you would like to see the tangent line's equation.")
+display("Type 'dformFunction' if you would like to see the derivative of the original function.")
+display("Type 'dFunction' for the same purpose above, but in an anonymous function form.")
+display(":)")
